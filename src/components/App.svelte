@@ -1,11 +1,13 @@
 <script>
-	/* By Connor Rothschild https://twitter.com/CL_Rothschild
-	Scrollytelling component from Russell Goldenberg https://twitter.com/codenberg/status/1432774653139984387 */
 
   import { onMount, createEventDispatcher } from 'svelte';
   import * as d3 from 'd3';
   import Scrolly from "./Scrolly.svelte";
   import Scatterplot from "./Scatterplot.svelte";
+  import Nav from './Nav.svelte';
+	import OLSDataTable from './OLSDataTable.svelte';
+  import CorrelationMatrix from './CorrelationMatrix.svelte';
+  import ANOVATable from './ANOVATable.svelte';
   
   let pricesData = [];
   
@@ -21,6 +23,7 @@
 		high: Math.round(+d['high']),
 		volume: Math.round(+d['volume']),
 	}));
+    const dataForCorrelation = pricesData.map(item => [item.open, item.close, item.low, item.high, item.volume]);
   });
 
   let value;
@@ -33,7 +36,8 @@
 
 <section>
 	<div class='hero'>
-		<h1> 
+    
+    <h1> 
 			Regression Analysis
 		</h1>
 		<h2>
@@ -55,11 +59,41 @@
   <div class="section-container">
     <div class="steps-container">
       <Scrolly bind:value>
-        {#each steps as text, i}
-          <div class="step" class:active={value === i}>
-            <div class="step-content">{@html text}</div>
+        <div class="step" class:active={value === 0}>
+          <div class="step-content">
+            <h1>Ordinary Least Squares</h1>
+            <p>
+              The Ordinary Least Squares (OLS) method to regression lets us estimate the parameters of a linear model. The goal of OLS is to determine the linear model that minimizes the sum of the squared errors between the observations in a dataset and those predicted by the model.
+            </p>
+            <h1>Equation</h1>
+            <p>Comment on data in graph</p>
+            <OLSDataTable/>
           </div>
-        {/each}
+        </div>
+        
+        <div class="step" class:active={value === 1}>
+          <div class="step-content">
+            <h1>Correlation</h1>
+            <p>
+              Correlation is a measure of the linear relationship between two variables.
+            </p>
+            <h1>Equation/Correlation Matrix</h1>
+            <p>Comment on data in graph</p>
+            <CorrelationMatrix />
+          </div>
+        </div>
+
+        <div class="step" class:active={value === 2}>
+          <div class="step-content">
+            <h1>Analysis of Variance</h1>
+            <p>
+              The Analysis of Variance (ANOVA) statistical method to regression tests whether groups of data have the same mean. ANOVA generalizes the t-test to two or more groups by comparing the sum of square error within and between groups.
+            </p>
+            <h1>ANOVA table</h1>
+            <p>Comment on data in graph</p>
+            <ANOVATable />
+          </div>
+        </div>
         <div class="spacer" />
       </Scrolly>
     </div>

@@ -4,7 +4,6 @@
   import * as d3 from 'd3';
   import Scrolly from "./Scrolly.svelte";
   import Scatterplot from "./Scatterplot.svelte";
-  import Nav from './Nav.svelte';
 	import OLSDataTable from './OLSDataTable.svelte';
   import CorrelationMatrix from './CorrelationMatrix.svelte';
   import ANOVATable from './ANOVATable.svelte';

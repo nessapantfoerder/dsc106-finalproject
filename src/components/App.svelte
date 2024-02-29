@@ -100,12 +100,23 @@
       <Scatterplot step={value} />
     </div>
   </div>
-	<div class='hero'>
-		<h1> 
-			The End
-		</h1>
-	</div>
+
+  <div class="hero">
+    <h1> 
+      Writeup
+    </h1>
+    <p>
+      The web page writeup contains at least 4 sentences for each of the following questions:
+    </p>
+    <p>
+      What have you done so far?
+    </p>
+    <p>
+      What will be the most challenging of your project to design and why?
+    </p>
+  </div>
 </section>
+	
 
 <style>
 	:global(body) {

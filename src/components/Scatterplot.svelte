@@ -18,6 +18,7 @@
   ];
 	
   import { scaleLinear, scaleSqrt } from "d3-scale";
+  import {line} from "d3-shape";
   import { extent, min, max } from "d3-array";
   import { tweened } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
@@ -73,6 +74,16 @@
   $: yScale = scaleLinear()
     .domain(extent($tweenedY, (d) => d))
     .range([height - margin.top, margin.bottom]);
+
+  const lineGenerator = d3.line()
+    .x(d => xScale(d.x))
+    .y(d => yScale(d.y));
+
+  const regressionLineData = [
+    { x: min($tweenedX), y: min($tweenedY) },
+    { x: max($tweenedX), y: max($tweenedY) }
+  ];
+
 </script>
 
 <div
@@ -91,6 +102,7 @@
         opacity=".9"
       />
     {/each}
+    <path d={`M${xScale(regressionLineData[0].x)} ${yScale(regressionLineData[0].y)} L${xScale(regressionLineData[1].x)} ${yScale(regressionLineData[1].y)}`} fill="none" stroke="red" stroke-width="2" />
   </svg>
 </div>
 

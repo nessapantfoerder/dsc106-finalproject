@@ -7,6 +7,8 @@
 	import OLSDataTable from './OLSDataTable.svelte';
   import CorrelationMatrix from './CorrelationMatrix.svelte';
   import ANOVATable from './ANOVATable.svelte';
+  import AnovaTable from './ANOVATable.svelte';
+  import OlsDataTable from './OLSDataTable.svelte';
   
   let pricesData = [];
   
@@ -27,9 +29,14 @@
 
   let value;
   const steps = [
-	"<h1>Ordinary Least Squares</h1><p>The Ordinary Least Squares (OLS) method to regression lets us estimate the parameters of a linear model. The goal of OLS is to determine the linear model that minimizes the sum of the squared errors between the observations in a dataset and those predicted by the model.</p><h1>Equation</h1><p>Comment on data in graph</p>",
-    "<h1>Correlation</h1><p>Correlation is a measure of the linear relationship between two variables</p><h1>Equation/Correlation Matrix</h1><p>Comment on data in graph</p>",
-    "<h1>Analysis of Variance</h1><p>The Analysis of Variance (ANOVA) statistical method to regression tests whether groups of data have the same mean. ANOVA generalizes the t-test to two or more groups by comparing the sum of square error within and between groups.</p><h1>ANOVA table</h1><p>Comment on data in graph</p>",
+	"<h1>Linear Regression</h1><p>The Ordinary Least Squares (OLS) method to regression lets us estimate the parameters of a linear model. \
+    The goal of OLS is to determine the linear model that minimizes the sum of the squared errors between the observations in a dataset \
+    and those predicted by the model.</p><h1>Equation</h1><p>Comment on data in graph</p>",
+    "<h1>Logistic Regression</h1><p>Correlation is a measure of the linear relationship between two variables</p>\
+    <h1>Equation/Correlation Matrix</h1><p>Comment on data in graph</p>",
+    "<h1>Conclusion</h1><p>The Analysis of Variance (ANOVA) statistical method to regression \
+      tests whether groups of data have the same mean. ANOVA generalizes the t-test to two or more groups by \
+      comparing the sum of square error within and between groups.</p><h1>ANOVA table</h1><p>Comment on data in graph</p>",
   ];
 </script>
 
@@ -37,60 +44,79 @@
 	<div class='hero'>
     
     <h1> 
-			Regression Analysis
+			The Ultimate Showdown
 		</h1>
 		<h2>
-			Linear regression is a statistical method used to model the relationship between two variables.
+			Linear Regression vs. Logistic Regression: <br>Who is the Winner?
 		</h2>
 		<h3>
-			Alaa Fadhl-allah
+      Nessa Pantfoerder & Alaa Fadhl-allah
 		</h3>
-		<h3>
-			Nessa Pantfoerder
-		</h3>
-		<p style="margin-top: 20px">
-			Scroll to Begin
-		</p>
-		<h4>
-			Linear regression is a technique employed to understand the relationship between a dependent variable and one or more independent variables. Here we will explore Ordinary Least Squares (OLS) method to minimize the sum of squared differences between observed and predicted values. We will also explore correlation to measure the relationship between two variables. Lastly we will discuss Analysis of Variance (ANOVA) frameworks to assess the significance of the relationship between variables and also provide insights into the strength and direction of correlation between them.
-		</h4>
+		
+    <p>
+      What is <strong>Linear Regression?</strong>
+      <br>
+      Linear Regression is a model that estimates the relationship between one 
+      independent variable and one dependent variable using a straight line, and uses that
+      relationship to make predictions. 
+      <br>
+      <br>
+      What is <strong>Logistic Regression?</strong>
+      <br>
+      Logistic regression is a model predicts a dependent data variable by analyzing the
+       relationship between it and an independent variable.
+      <br>
+      So, what is the difference?
+    <p style="margin-top: 20px">
+        Keep scrolling to find out!
+    </p>
 	</div>
   <div class="section-container">
     <div class="steps-container">
       <Scrolly bind:value>
         <div class="step" class:active={value === 0}>
           <div class="step-content">
-            <h1>Ordinary Least Squares</h1>
-            <p>
-              The Ordinary Least Squares (OLS) method to regression lets us estimate the parameters of a linear model. The goal of OLS is to determine the linear model that minimizes the sum of the squared errors between the observations in a dataset and those predicted by the model.
-            </p>
+            <h1>Linear Regression</h1>
+            <p>Pros:
+              <ul>
+                  <li>Efficiency;</li>
+                  <li>Provides Coefficients;</li>
+              </ul>
+              Cons:
+              <ul>
+                  <li>Sensitive to Outliers</li>
+                  <li>May Overfit Data</li>
+              </ul>            
             <h1>Equation</h1>
-            <p>Comment on data in graph</p>
-            <OLSDataTable/>
+            <p>
+              \( Y = \beta_0 + \beta_1 *X_1  \)
+          </p>
           </div>
         </div>
         
         <div class="step" class:active={value === 1}>
           <div class="step-content">
-            <h1>Correlation</h1>
-            <p>
-              Correlation is a measure of the linear relationship between two variables.
-            </p>
-            <h1>Equation/Correlation Matrix</h1>
-            <p>Comment on data in graph</p>
-            <CorrelationMatrix />
-          </div>
+            <h1>Logistic Regression</h1>
+            <h3>Pros:</h3>
+            <ul>
+                <li>Interpretability</li>
+                <li>Less Prone to Overfitting</li>
+            </ul>
+
+            <h3>Cons:</h3>
+            <ul>
+                <li>Limited to Linear Decision Boundaries</li>
+                <li>Assumes Independence of Observations</li>
+            </ul>
+            <h1>Equation</h1>
+            <p></p>
         </div>
 
         <div class="step" class:active={value === 2}>
           <div class="step-content">
-            <h1>Analysis of Variance</h1>
+            <h1>Conclusion</h1>
             <p>
-              The Analysis of Variance (ANOVA) statistical method to regression tests whether groups of data have the same mean. ANOVA generalizes the t-test to two or more groups by comparing the sum of square error within and between groups.
-            </p>
-            <h1>ANOVA table</h1>
-            <p>Comment on data in graph</p>
-            <ANOVATable />
+            In conclusion, choose based on the nature of the problem; logistic regression for classification tasks, linear regression for predicting continuous outcomes.            </p>
           </div>
         </div>
         <div class="spacer" />
@@ -110,9 +136,16 @@
     </p>
     <p>
       What have you done so far?
+      <br>
+      So far, we have set up the blueprint of the webpage. We created 3 slides; one for linear regression, one for logistic regression, and one for the conclusion.  
+      We used the linearregression from simple-statistics to fit a linear regression model to the simulated data. In addition, we are working on using logistic-regression from the same package to fit a logistic regression model to the simulated data. Then, we added a button to add an outlier, as well as a buttion 
+      to remove outliers, so that we can show how outliers affect linear regression and logistic regression. The prototype has 3 visualizations and 2 interative buttons.
     </p>
     <p>
       What will be the most challenging of your project to design and why?
+      <br>
+      The most challenging part of our project to design will be the logistic regression model. This is because logistic regression is a more complex model than linear regression. It is also more difficult to interpret the results of logistic regression than linear regression. Regarding the linear regression model, 
+      there is the challenge of updating the linear regression model with the addition/removal of points simultaneously. We may add a button to fit the new data to oveercome that difficulty.
     </p>
   </div>
 </section>
@@ -122,6 +155,7 @@
 	:global(body) {
 		overflow-x: hidden;
 	}
+  
 	
 	.hero {
 		height: 60vh;

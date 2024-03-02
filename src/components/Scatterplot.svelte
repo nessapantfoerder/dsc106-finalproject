@@ -1,23 +1,44 @@
 <script>
   import * as d3 from 'd3';
   import { getAllContexts, getContext, createEventDispatcher } from 'svelte';
+  import { scaleLinear, axisBottom, axisLeft } from 'd3';
+  import { linearRegression } from 'simple-statistics';
 
   export let step;
   export let pricesData;
 
   let data = [
-    { foo: 4, bar: 1, swag: 7 },
-    { foo: 1, bar: 3, swag: 3 },
-    { foo: 9, bar: 5, swag: 4 },
-    { foo: 2, bar: 5, swag: 5 },
-    { foo: 10, bar: 4, swag: 6 },
-    { foo: 9, bar: 5, swag: 7 },
-    { foo: 5, bar: 3, swag: 8 },
-    { foo: 4, bar: 10, swag: 9 },
-    { foo: 1, bar: 6, swag: 10 },
+    { foo: 2, bar: 3, swag: 3 },
+    { foo: 2, bar: 3, swag: 3 },
+    { foo: 3, bar: 4, swag: 2 },
+    { foo: 4, bar: 5, swag: 1 },
+    { foo: 5, bar: 6, swag: 2 },
+    { foo: 6, bar: 5, swag: 4 },
+    { foo: 4, bar: 5, swag: 5 },
+    { foo: 6, bar: 6, swag: 6 },
+    { foo: 9, bar: 8, swag: 7 },
+    { foo: 7, bar: 6, swag: 8 },
+    { foo: 10, bar: 10, swag: 9 },
+    { foo: 8, bar: 8, swag: 10 },
+    { foo: 6, bar: 5, swag: 4 },
+    { foo: 4, bar: 5, swag: 5 },
+    { foo: 3, bar: 4, swag: 6 },
+    { foo: 9, bar: 8, swag: 7 },
+    { foo: 7, bar: 6, swag: 8 },
+    { foo: 10, bar: 10, swag: 9 },
+    { foo: 3, bar: 2, swag: 10 },
+    { foo: 1, bar: 10, swag: 10 },
+    { foo: 1, bar: 9, swag: 10 },
+    { foo: 2, bar: 10, swag: 10 },
+    { foo: 2, bar: 9, swag: 10 },
+    { foo: 2, bar: 8, swag: 10 },
+    { foo: 1, bar: 8, swag: 10 },
+    { foo: 1, bar: 1, swag: 7 },
+
   ];
+
 	
-  import { scaleLinear, scaleSqrt } from "d3-scale";
+  import {  scaleSqrt } from "d3-scale";
   import {line} from "d3-shape";
   import { extent, min, max } from "d3-array";
   import { tweened } from "svelte/motion";
@@ -26,6 +47,8 @@
   let width;
   let height;
 
+  
+  
   const margin = { top: 30, bottom: 30, left: 30, right: 30 };
 
   const tweenOptions = {
@@ -79,12 +102,46 @@
     .x(d => xScale(d.x))
     .y(d => yScale(d.y));
 
-  const regressionLineData = [
+  let regressionLineData = [
     { x: min($tweenedX), y: min($tweenedY) },
     { x: max($tweenedX), y: max($tweenedY) }
   ];
+  // Create a reactive statement that recalculates the regression line whenever the data changes
+  $: regressionLine = calculateRegressionLine(data);
 
+function calculateRegressionLine(data) {
+  // Prepare the data for the linearRegression function
+  const preparedData = data.map(d => [d.x, d.y]);
+
+  // Calculate the slope and intercept of the regression line
+  const { m: slope, b: intercept } = linearRegression(preparedData);
+
+  return { slope, intercept };
+}
+
+  function handleAddOutlier() {
+    // Define the outlier point
+    const outlier = { foo: 6, dog: 1, swag: 0 };
+
+    // Add the outlier point to data
+    data = [...data, outlier];
+    regressionLineData = [
+        { x: min($tweenedX), y: min($tweenedY) },
+        { x: max($tweenedX), y: max($tweenedY) }
+      ];
+  }
+
+  function handleRemoveOutlier() {
+    // Remove the last point from data
+    data = data.slice(0, -1);
+    
+  }
+
+  
 </script>
+
+<button on:click={handleAddOutlier}>Add Outlier</button>
+<button on:click={handleRemoveOutlier}>Remove Outlier</button>
 
 <div
   class="chart-container"
@@ -103,6 +160,7 @@
       />
     {/each}
     <path d={`M${xScale(regressionLineData[0].x)} ${yScale(regressionLineData[0].y)} L${xScale(regressionLineData[1].x)} ${yScale(regressionLineData[1].y)}`} fill="none" stroke="red" stroke-width="2" />
+    <button on:click={handleRemoveOutlier}>Remove Outlier</button>
   </svg>
 </div>
 

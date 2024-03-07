@@ -1,7 +1,6 @@
 <script>
   import * as d3 from 'd3';
   import { getAllContexts, getContext, createEventDispatcher } from 'svelte';
-  import { scaleLinear, axisBottom, axisLeft } from 'd3';
   import { linearRegression } from 'simple-statistics';
 
   export let step;
@@ -34,21 +33,18 @@
     { foo: 2, bar: 8, swag: 10 },
     { foo: 1, bar: 8, swag: 10 },
     { foo: 1, bar: 1, swag: 7 },
-
   ];
-
 	
-  import {  scaleSqrt } from "d3-scale";
+  import { scaleLinear } from "d3-scale";
   import {line} from "d3-shape";
   import { extent, min, max } from "d3-array";
   import { tweened } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
+  import { regressionPoly } from "d3-regression";
 
   let width;
   let height;
 
-  
-  
   const margin = { top: 30, bottom: 30, left: 30, right: 30 };
 
   const tweenOptions = {
@@ -57,12 +53,12 @@
     easing: cubicOut,
   };
 
-  const tweenedX = tweened(
+  $: tweenedX = tweened(
     data.map((d) => d.foo),
     tweenOptions
   );
 
-  const tweenedY = tweened(
+  $: tweenedY = tweened(
     data.map((d) => d.bar),
     tweenOptions
   );
@@ -102,42 +98,59 @@
     .x(d => xScale(d.x))
     .y(d => yScale(d.y));
 
-  let regressionLineData = [
-    { x: min($tweenedX), y: min($tweenedY) },
-    { x: max($tweenedX), y: max($tweenedY) }
-  ];
-  // Create a reactive statement that recalculates the regression line whenever the data changes
-  $: regressionLine = calculateRegressionLine(data);
+  let regressionLine;
 
-function calculateRegressionLine(data) {
-  // Prepare the data for the linearRegression function
-  const preparedData = data.map(d => [d.x, d.y]);
+  $: {
+    regressionLine = calculateRegressionLine(data);
+  }
 
-  // Calculate the slope and intercept of the regression line
-  const { m: slope, b: intercept } = linearRegression(preparedData);
-
-  return { slope, intercept };
-}
+  function calculateRegressionLine(data) {
+    const preparedData = data.map(d => [+d.foo, +d.bar]);
+    const { m: slope, b: intercept } = linearRegression(preparedData);
+    const minX = Math.min(...data.map(d => d.foo));
+    const maxX = Math.max(...data.map(d => d.foo));
+    const minY = slope * minX + intercept;
+    const maxY = slope * maxX + intercept;
+    return [{ x: minX, y: minY }, { x: maxX, y: maxY }];
+  }
 
   function handleAddOutlier() {
-    // Define the outlier point
-    const outlier = { foo: 6, dog: 1, swag: 0 };
-
-    // Add the outlier point to data
-    data = [...data, outlier];
-    regressionLineData = [
-        { x: min($tweenedX), y: min($tweenedY) },
-        { x: max($tweenedX), y: max($tweenedY) }
-      ];
+      const newOutlier = {
+      foo: Math.random() * 10,
+      bar: Math.random() * 10,
+      swag: Math.random() * 10, 
+    };
+    data.push(newOutlier);
+    regressionLine = calculateRegressionLine(data);
+    tweenedX.set(data.map(d => d.foo));
+    tweenedY.set(data.map(d => d.bar));
   }
-
-  function handleRemoveOutlier() {
-    // Remove the last point from data
-    data = data.slice(0, -1);
-    
-  }
-
   
+  function handleRemoveOutlier() {
+    let maxDistance = -1;
+    let indexToRemove;
+    data.forEach((point, index) => {
+      const distance = calculateDistanceToRegressionLine(point, regressionLine);
+      if (distance > maxDistance) {
+        maxDistance = distance;
+        indexToRemove = index;
+      }
+    });
+    if (indexToRemove !== undefined) {
+      data.splice(indexToRemove, 1);
+    }
+    regressionLine = calculateRegressionLine(data);
+    tweenedX.set(data.map(d => d.foo));
+    tweenedY.set(data.map(d => d.bar));
+  }
+
+  function calculateDistanceToRegressionLine(point, regressionLine) {
+    const slope = (regressionLine[1].y - regressionLine[0].y) / (regressionLine[1].x - regressionLine[0].x);
+    const intercept = regressionLine[0].y - slope * regressionLine[0].x;
+    const distance = Math.abs(point.bar - (slope * point.foo + intercept)) / Math.sqrt(1 + slope * slope);
+    return distance;
+  }
+
 </script>
 
 <button on:click={handleAddOutlier}>Add Outlier</button>
@@ -159,9 +172,12 @@ function calculateRegressionLine(data) {
         opacity=".9"
       />
     {/each}
-    <path d={`M${xScale(regressionLineData[0].x)} ${yScale(regressionLineData[0].y)} L${xScale(regressionLineData[1].x)} ${yScale(regressionLineData[1].y)}`} fill="none" stroke="red" stroke-width="2" />
-    <button on:click={handleRemoveOutlier}>Remove Outlier</button>
-  </svg>
+    {#if step == 0}
+      <path d={`M${xScale(regressionLine[0].x)} ${yScale(regressionLine[0].y)} L${xScale(regressionLine[1].x)} ${yScale(regressionLine[1].y)}`} fill="none" stroke="red" stroke-width="2" />
+    {:else}
+      <!-- <path d={polyRegressionLine} fill="none" stroke="green" stroke-width="2" /> -->
+    {/if}
+    </svg>
 </div>
 
 <style>

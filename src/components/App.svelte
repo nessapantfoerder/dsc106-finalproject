@@ -28,16 +28,6 @@
   });
 
   let value;
-  const steps = [
-	"<h1>Linear Regression</h1><p>The Ordinary Least Squares (OLS) method to regression lets us estimate the parameters of a linear model. \
-    The goal of OLS is to determine the linear model that minimizes the sum of the squared errors between the observations in a dataset \
-    and those predicted by the model.</p><h1>Equation</h1><p>Comment on data in graph</p>",
-    "<h1>Logistic Regression</h1><p>Correlation is a measure of the linear relationship between two variables</p>\
-    <h1>Equation/Correlation Matrix</h1><p>Comment on data in graph</p>",
-    "<h1>Conclusion</h1><p>The Analysis of Variance (ANOVA) statistical method to regression \
-      tests whether groups of data have the same mean. ANOVA generalizes the t-test to two or more groups by \
-      comparing the sum of square error within and between groups.</p><h1>ANOVA table</h1><p>Comment on data in graph</p>",
-  ];
 </script>
 
 <section>
@@ -77,7 +67,7 @@
         <div class="step" class:active={value === 0}>
           <div class="step-content">
             <h1>Linear Regression</h1>
-            <p>Pros:
+              <p>Pros:
               <ul>
                   <li>Efficiency;</li>
                   <li>Provides Coefficients;</li>

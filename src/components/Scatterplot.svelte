@@ -40,7 +40,6 @@
   import { extent, min, max } from "d3-array";
   import { tweened } from "svelte/motion";
   import { cubicOut } from "svelte/easing";
-  import { regressionPoly } from "d3-regression";
 
   let width;
   let height;

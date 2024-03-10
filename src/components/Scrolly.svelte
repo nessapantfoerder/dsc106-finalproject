@@ -1,19 +1,5 @@
 <script>
-  /**
-	Scrollytelling component from Russell Goldenberg 
-	https://twitter.com/codenberg/status/1432774653139984387
-	
-   * This component manages which item is most in view for scroll triggering
-   * example:
-   * <Scroll
-   * 	bind:value={scrollIndex}
-   * >
-   * **items here**
-   * </Scroll>
-   *
-   * optional params with defaults
-   * <Scroll root={null} top={0} bottom={0} increments={100}>
-   */
+
   import { onMount } from "svelte";
   export let root = null;
   export let top = 0;

@@ -3,12 +3,22 @@
   import { onMount, createEventDispatcher } from 'svelte';
   import * as d3 from 'd3';
   import Scrolly from "./Scrolly.svelte";
-  import Scatterplot from "./Scatterplot.svelte";
-	import OLSDataTable from './OLSDataTable.svelte';
-  import CorrelationMatrix from './CorrelationMatrix.svelte';
-  import ANOVATable from './ANOVATable.svelte';
-  import AnovaTable from './ANOVATable.svelte';
-  import OlsDataTable from './OLSDataTable.svelte';
+  import Scatterplot from "./Scatterplot1.svelte";
+
+  import Logo from "./Logo.svelte";
+  import Title from "./Title.svelte";
+  import Intro from "./Intro.svelte";
+  import MeanSquaredError from "./MeanSquaredError.svelte";
+  import WriteUp from "./WriteUp.svelte";
+  import katexify from "../katexify";
+  import {
+    coeff,
+    intercept,
+    sliding
+  } from "../store.js";
+  import { format } from "d3-format";
+
+  const formatter = format("$,");
   
   let pricesData = [];
   
@@ -28,125 +38,135 @@
   });
 
   let value;
+
 </script>
 
+
+<Logo />
+<Title />
+<Intro />
+
 <section>
-	<div class='hero'>
-    
-    <h1> 
-			The Ultimate Showdown
-		</h1>
-		<h2>
-			Linear Regression vs. Logistic Regression: <br>Who is the Winner?
-		</h2>
-		<h3>
-      Nessa Pantfoerder & Alaa Fadhl-allah
-		</h3>
-		
-    <p>
-      What is <strong>Linear Regression?</strong>
-      <br>
-      Linear Regression is a model that estimates the relationship between one 
-      independent variable and one dependent variable using a straight line, and uses that
-      relationship to make predictions. 
-      <br>
-      <br>
-      What is <strong>Logistic Regression?</strong>
-      <br>
-      Logistic regression is a model predicts a dependent data variable by analyzing the
-       relationship between it and an independent variable.
-      <br>
-      So, what is the difference?
-    <p style="margin-top: 20px">
-        Keep scrolling to find out!
-    </p>
-	</div>
+	
   <div class="section-container">
     <div class="steps-container">
       <Scrolly bind:value>
         <div class="step" class:active={value === 0}>
           <div class="step-content">
-            <h1>Linear Regression</h1>
-              <p>Pros:
-              <ul>
-                  <li>Efficiency;</li>
-                  <li>Provides Coefficients;</li>
-              </ul>
-              Cons:
-              <ul>
-                  <li>Sensitive to Outliers</li>
-                  <li>May Overfit Data</li>
-              </ul>            
-            <h1>Equation</h1>
             <p>
-              \( Y = \beta_0 + \beta_1 *X_1  \)
+            Let's fit a model to predict y using x (in units):
+            <br /><br />
+            {@html katexify(
+              `\\text{y type} = \\hat{\\beta_1} * x unit + \\hat{\\beta_0}`,
+              false
+            )}
+            <br /><br />
+            We'll start with a  simple model, predicting the y
+            to be just the average y in our dataset, ~5, ignoring
+            the different x's of each data point:
+            <br /><br />
+            {@html katexify(`\\text{y type} = 0.778 * x unit + 5`, false)}
           </p>
           </div>
         </div>
-        
+
         <div class="step" class:active={value === 1}>
           <div class="step-content">
-            <h1>Logistic Regression</h1>
-            <h3>Pros:</h3>
-            <ul>
-                <li>Interpretability</li>
-                <li>Less Prone to Overfitting</li>
-            </ul>
-
-            <h3>Cons:</h3>
-            <ul>
-                <li>Limited to Linear Decision Boundaries</li>
-                <li>Assumes Independence of Observations</li>
-            </ul>
-            <h1>Equation</h1>
-            <p></p>
+            <p>
+            We know this model is bad because the model doesn't fit the data
+            well at all. But how can do quantify exactly <i>how</i> bad?
+            <br /><br />
+            To evaluate the model's performance numerically, we plot the error
+            of each observation directly. These errors, or
+            <span class="bold">residuals</span>, measure the distance between
+            each observation and the predicted value for that observation. We can 
+            clearly see that our model has a lot of error.
+          </p>
+          </div>
         </div>
 
         <div class="step" class:active={value === 2}>
           <div class="step-content">
-            <h1>Conclusion</h1>
             <p>
-            In conclusion, choose based on the nature of the problem; logistic regression for classification tasks, linear regression for predicting continuous outcomes.            </p>
+            The goal of linear regression is reducing this error such that we
+            find a line that 'best' fits our data. For our simple
+            regression problem, that involves estimating the y-intercept and slope
+            of our model, {@html katexify(`\\hat{\\beta_0}`, false)} and {@html katexify(
+              `\\hat{\\beta_1}`,
+              false
+            )}.
+            <br /><br />
+            For our specific problem, the best fit line is shown. There's still error,
+            but, the general pattern is captured well. As a result, we can be
+            reasonably confident that if we plug in new values of x unit,
+            our predicted values of y unit would be reasonably accurate.
+          </p>
+          </div>
+        </div>
+
+        <div class="step" class:active={value === 3}>
+          <div class="step-content">
+            <p>
+            Once we've fit our model, predicting future y values is super easy! We
+            just plug in any {@html katexify(`x_i`, false)} values into our equation!
+            <br /><br />For our simple model, that means plugging in a value for
+            {@html katexify(`x unit`, false)} into our model:
+          </p>
+          <br />
+          <div id="input-container">
+            <p>{@html katexify(`x unit`, false)} Value: {$sliding}</p>
+            <input
+              type="range"
+              min="1"
+              max="10"
+              step="0.1"
+              bind:value={$sliding}
+              class="slider"
+              id="myRange"
+            />
+          </div>
+          <p>
+            <br />
+            {@html katexify(
+              `\\hat{y} = ${$coeff} * ${$sliding} ${$intercept}`,
+              false
+            )}
+            <br />
+            {@html katexify(
+              `\\hat{y} =  ${Math.round($sliding * $coeff + $intercept, 3)}`,
+              false
+            )}
+            <br />
+            <br />
+            Thus, our model predicts an x-value that is {$sliding} will have a y-value of
+            {(Math.round($sliding * $coeff + $intercept, 3))}.
+          </p>
           </div>
         </div>
         <div class="spacer" />
       </Scrolly>
     </div>
     <div class="sticky">
-      <Scatterplot step={value} />
+      <Scatterplot step={value}/>
     </div>
   </div>
 
-  <div class="hero">
-    <h1> 
-      Writeup
-    </h1>
-    <p>
-      The web page writeup contains at least 4 sentences for each of the following questions:
-    </p>
-    <p>
-      What have you done so far?
-      <br>
-      So far, we have set up the blueprint of the webpage. We created 3 slides; one for linear regression, one for logistic regression, and one for the conclusion.  
-      We used the linearregression from simple-statistics to fit a linear regression model to the simulated data. In addition, we are working on using logistic-regression from the same package to fit a logistic regression model to the simulated data. Then, we added a button to add an outlier, as well as a buttion 
-      to remove outliers, so that we can show how outliers affect linear regression and logistic regression. The prototype has 3 visualizations and 2 interative buttons.
-    </p>
-    <p>
-      What will be the most challenging of your project to design and why?
-      <br>
-      The most challenging part of our project to design will be the logistic regression model. This is because logistic regression is a more complex model than linear regression. It is also more difficult to interpret the results of logistic regression than linear regression. Regarding the linear regression model, 
-      there is the challenge of updating the linear regression model with the addition/removal of points simultaneously. We may add a button to fit the new data to oveercome that difficulty.
-    </p>
-  </div>
+  <p class="body-text">
+    Now that we have a high-level idea of how linear regression works, let's
+    dive a bit deeper. The remainder of this article will cover how to evaluate
+    regression models.
+    <br /><br /> Let's dive in!
+  </p>
 </section>
-	
+
+<MeanSquaredError />
+<WriteUp />
 
 <style>
 	:global(body) {
 		overflow-x: hidden;
 	}
   
-	
 	.hero {
 		height: 60vh;
 		display: flex;

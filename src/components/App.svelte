@@ -3,7 +3,7 @@
   import { onMount, createEventDispatcher } from 'svelte';
   import * as d3 from 'd3';
   import Scrolly from "./Scrolly.svelte";
-  import Scatterplot from "./Scatterplot1.svelte";
+  import Scatterplot from "./Scatterplot.svelte";
 
   import Logo from "./Logo.svelte";
   import Title from "./Title.svelte";

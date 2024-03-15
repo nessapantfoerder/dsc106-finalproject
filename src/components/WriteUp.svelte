@@ -28,3 +28,16 @@
   the linear regression model with the addition/removal of points simultaneously. We may 
   add a button to fit the new data to oveercome that difficulty.
 </p>
+
+<style>
+  .body-header {
+    font-size: 1.5em;
+    font-weight: bold;
+    opacity: 0;
+  }
+
+  .body-text {
+    font-size: 1.2em;
+    opacity: 0;
+  }
+</style>

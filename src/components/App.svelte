@@ -116,7 +116,7 @@
         <div class="step" class:active={value === 0}>
           <div class="step-content">
             <p class = 'lol'>
-              <strong>Super Simple Linear Model</strong>
+              <strong>A Super Duper Simple Linear Model</strong>
               <br />
             <br />
             First, we will start with a very simple model that predicts the y to be the average of y values in our dataset, without considering the x values.
@@ -133,23 +133,21 @@
         <div class="step" class:active={value === 1}>
           <div class="step-content">
             <p class = 'lol'>
-              This model sucks at matching our data closely. 
+              This model is super simple, but sadly, a little stupid. 
+              It sucks at capturing the pattern in our data. 
               <br>
               <br>
-              But..
-              <br>
-               How can we measure <i>how</i> much it sucks?
+              But..how can we measure <i>how</i> much it sucks?
             <br /><br />
             <strong>Residuals!</strong>
             <br>
-            Plotted are the difference between each actual observation and its predicted value.
             <br>
+            Plotted are the difference between each actual observation and its predicted value.
             These differences, or
             <span class="bold"><i>residuals</i></span>,  show how far off our predictions are from the actual data points. 
             <br>
             <br>
-            This simple model has a lot of residuals, which is bad. Very, very bad!!
-            <br>
+            This simple model has a lot of residuals, which is very, very bad.
           </p>
           </div>
         </div>
@@ -160,16 +158,16 @@
             <strong>Line of Best Fit & Residuals</strong>
             <br>
             <br>
-            Remember: the goal of linear regression is finding the line of best fit, which is the line that 
+            <i>Remember</i>: the goal of linear regression is finding the line of best fit; the line that 
             minimizes the residuals. 
             <br>
             <br>
-            The line that best fits our data is plotted. There is still error, but it is minimized and the general 
+            Plotted is the line of best fit for our data. There is still error, but it is minimized and the general 
             pattern is captured. 
-             {@html katexify(`\\hat{\\beta_0}`, false)} and {@html katexify(
-              `\\hat{\\beta_1}`,
-              false
-            )}.
+            <br>
+            <br>
+            <strong>Now this is a Linear Regression Model!</strong> 
+            
             </p>
           </div>
         </div>
@@ -181,13 +179,12 @@
               <br>
               <br>
               Once we've fit our model, predicting future y values is super easy! We
-              just plug in any {@html katexify(`x_i`, false)} values into our equation!
-              <br /><br />For our linear regression model model, that means plugging in a value for
-              {@html katexify(`x unit`, false)} into our model:
+              just plug in any x into our equation. 
+              <br /><br /><strong>Try it for yourself! </strong>Plug in any value of x into our model and see what y value you get. 
             </p>
           <div id="input-container">
             <p class = 'lol'>
-            {@html katexify(`x unit`, false)} Value: {$sliding}</p>
+            {'x'} Value: {$sliding}</p>
             <input
               type="range"
               min="1"
@@ -200,19 +197,10 @@
           </div>
           <p class = 'lol'>
             <br />
-            {@html katexify(
-              `\\hat{y} = ${$coeff} * ${$sliding} ${$intercept}`,
-              false
-            )}
+            y = {$coeff} * {$sliding} + {$intercept}
             <br />
             <br />
-            {@html katexify(
-              `\\hat{y} =  ${Math.round($sliding * $coeff + $intercept, 3)}`,
-              false
-            )}
-            <br />
-            <br />
-            Thus, our model predicts an x-value that is {$sliding} will have a y-value of
+            Our model predicts that an x-value of {$sliding} will have a y-value of
             {(Math.round($sliding * $coeff + $intercept, 3))}.
           </p>
           </div>

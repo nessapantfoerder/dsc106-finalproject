@@ -13,15 +13,12 @@
   <h1 class="body-header">Model Evaluation</h1>
   <p class="body-text">
     <br />
-    To train an accurate linear regression model, we need a way to quantify how good
-    (or bad) our model performs. In machine learning, we call such performance-measuring
-    functions <i>loss functions</i>. Several popular loss functions exist for
-    regression problems.
-    To measure our model's performance, we'll use one of the most popular: mean-squared
-    error (MSE).
+    There are many ways to evaluate the performance of a regression model, but the two most common are Mean Squared Error (MSE) and R-squared. 
+    They both use residuals, but in different ways.
     <br /><br />
-    <span class="bold">Mean-Squared Error (MSE)</span>
+    <strong>1. Mean-Squared Error (MSE)</strong>
     <br />
+    <br>
     MSE quantifies how close a predicted value is to the true value, so we'll use
     it to quantify how close a regression line is to a set of points. MSE works by
     squaring the distance between each data point and the regression line (the red
@@ -30,19 +27,12 @@
       `\\begin{aligned} MSE = \\frac{1}{n} \\Sigma^{n}_{i=1}(y_i - \\hat{y_i})^2 \\end{aligned}`,
       true
     )}
-    The name is quite literal: take the mean of the squared errors. The squaring
-    of errors prevents negative and positive terms from canceling out in the sum,
-    and gives more weight to points further from the regression line, punishing outliers.
-    In practice, we'll fit our regression model to a set training data, and evaluate
-    it's performance using MSE on the test dataset.
-    <!-- new -->
+    
     <br /><br />
-    <span class="bold">R-Squared</span>
+    <strong>2. R-Squared</strong>
     <br />
-    Regression models may also be evaluated with the so-called
-    <i>goodness of fit</i>
-    measures, which summarize how well a model fits a set of data. The most popular
-    goodness of fit measure for linear regression is r-squared, a metric that represents
+    <br>
+    R-squared is a metric that represents
     the percentage of the variance in {@html katexify(`y`, false)} explained by our
     features {@html katexify(`x`, false)}.
     More specifically, r-squared measures the percentage of variance explained normalized
@@ -52,11 +42,15 @@
       `\\begin{aligned} R^2 = 1 - \\frac{\\Sigma^{n}_{i=1}(y_i - \\hat{y_i})^2 }{\\Sigma^{n}_{i=1}(y_i - \\bar{y})^2 }  \\end{aligned}`,
       true
     )}
-    The highest possible value for r-squared is 1, representing a model that captures
-    100% of the variance. A negative r-squared means that our model is doing worse
-    (capturing less variance) than a flat line through mean of our data would.
-
-    <br /><br />To build intuition for yourself, try changing the weight and
+    <br>
+    R-squared must lie within [-1, 1]. A negative r-squared is doing worse than a flat line through the mean of our data, like our super duper simple (but stupid) model.
+    
+    <br /><br />
+    <br>
+  </p>
+    <h3>Try for yourself!</h3>
+    <p>
+    To build intuition for yourself, change the weight and
     bias terms below to see how the MSE and r-squared change across different
     model fits:
   </p>
@@ -140,25 +134,9 @@
   <br /><br />
 
   <br /><br />
+  <h3>Conclusion</h3>
   <p class="body-text">
-    You will often see R-Squared referenced in statistical contexts as a way to
-    assess model fit.
-    <br /><br />
-    <span class="bold">Selecting An Evaluation Metric</span><br />
-    Many methods exist for evaluating regression models, each with different concerns
-    around interpretability, theory, and usability. The evaluation metric should
-    reflect whatever it is you actually care about when making predictions. For example,
-    when we use MSE, we are implicitly saying that we think the cost of our prediction
-    error should reflect the quadratic (squared) distance between what we predicted
-    and what is correct. This may work well if we want to punish outliers or if our
-    data is minimized by the mean, but this comes at the cost of interpretability:
-    we output our error in squared units (though this may be fixed with
-    RMSE). If instead we wanted our error to reflect the linear distance between
-    what we predicted and what is correct, or we wanted our data minimized by
-    the median, we could try something like Mean Abosulte Error (MAE). Whatever the 
-    case, you should be thinking of your evaluation metric as
-    part of your modeling process, and select the best metric based on the
-    specific concerns of your use-case.
+    WE NEED TO INCLUDE A CONCLUSION AND TAKEAWAY HERE BECAUSE IT IS A FEEDBACK I GOT DURING CLASS
   </p>
 </section>
 
@@ -168,6 +146,11 @@
     
   }
   h1 {
+    font-family: Arial, sans-serif; /* Replace with your desired font */
+    text-align: center;
+    
+  }
+  h3 {
     font-family: Arial, sans-serif; /* Replace with your desired font */
     text-align: center;
     

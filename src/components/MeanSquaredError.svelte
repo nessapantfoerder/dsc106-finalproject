@@ -163,10 +163,19 @@
 </section>
 
 <style>
+  p {
+    font-family: Arial, sans-serif; /* Replace with your desired font */
+    
+  }
+  h1 {
+    font-family: Arial, sans-serif; /* Replace with your desired font */
+    text-align: center;
+    
+  }
   #mse-container {
     display: grid;
     grid-template-columns: 50% 50%;
-    font-family: var(--font-mono);
+    font-family: Arial, sans-serif; /* Replace with your desired font */
     margin: auto;
     max-width: 1000px;
     height: 50vh;

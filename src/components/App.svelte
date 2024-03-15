@@ -1,10 +1,10 @@
 <script>
-
   import { onMount, createEventDispatcher } from 'svelte';
   import * as d3 from 'd3';
   import Scrolly from "./Scrolly.svelte";
   import Scatterplot from "./Scatterplot.svelte";
-
+  import { mseBias, mseWeight, mseError, rSquared, RSS, TSS } from "../store";
+  import MSEScatterplot from "./MSEScatterplot.svelte";
   import Logo from "./Logo.svelte";
   import Title from "./Title.svelte";
   import Intro from "./Intro.svelte";
@@ -17,10 +17,14 @@
     sliding
   } from "../store.js";
   import { format } from "d3-format";
+  import { fade } from 'svelte/transition';
 
   const formatter = format("$,");
   
   let pricesData = [];
+  let scrollY = 0;
+  let mseScatterClass;
+
   
   onMount(async () => {
 	const res = await fetch('prices.csv');
@@ -36,85 +40,154 @@
 	}));
     const dataForCorrelation = pricesData.map(item => [item.open, item.close, item.low, item.high, item.volume]);
   });
+  onMount(() => {
+    const updateScrollY = () => {
+      scrollY = window.scrollY;
+    };
+
+    window.addEventListener('scroll', updateScrollY);
+
+    return () => {
+      window.removeEventListener('scroll', updateScrollY);
+    };
+  });
 
   let value;
-
 </script>
-
 
 <Logo />
 <Title />
 <Intro />
 
+
 <section>
-	
+  <h3 class:fade-in={scrollY > 100}>
+    What is Linear Regression?
+  </h3>
+  <p class:fade-in={scrollY > 150}>
+    <strong>Linear Regression</strong>  is a basic statistical model used to understand how changes in one variable relates to changes in another variable.
+    It does this by fitting a straight line to the data points and using that line to predict future values.
+    <br>
+    <br>
+  </p>
+  <p class:fade-in={scrollY > 200}>
+    Let's be more specific..
+  </p>
+  <p class:fade-in={scrollY > 250}>
+    <strong>Linear Regression</strong> is an algorithm that learns to model a dependent variable Y as a function of some independent variable X by finding the <i>line that best fits the data.
+    <br>
+    <br>
+    
+    </p>
+    <p class:fade-in={scrollY > 500}>
+      <strong>Line of Best Fit Equation:</strong>
+      <br>
+      
+    </p>
+    <p class:fade-in={scrollY > 500}>
+      {@html katexify(`Y = A + B * X`, false)}
+      <br>
+      where B is the slope of the line and A is the y-intercept.
+      <br>
+      With this equation, we can predict future values of Y given any value of X by plugging X into the equation.
+      <br>
+      <br>    
+    </p>
+    <p class:fade-in={scrollY > 600}>
+      A simple example:
+  <br>
+  Let's say we are predicting the price of the house using the number of rooms in the house.
+  The number of rooms in the house is the independent variable X
+  and the price of the house is the dependent variable Y.
+</p>
+</section>
+
+<section>
+  <h3 class:fade-in={scrollY > 700}>
+    How is a Linear Regression Model built?
+  </h3>
+</section>
+
+{#if scrollY > 720}
+<section>
   <div class="section-container">
     <div class="steps-container">
       <Scrolly bind:value>
         <div class="step" class:active={value === 0}>
           <div class="step-content">
-            <p>
-            Let's fit a model to predict y using x (in units):
+            <p class = 'lol'>
+              <strong>Super Simple Linear Model</strong>
+              <br />
+            <br />
+            First, we will start with a very simple model that predicts the y to be the average of y values in our dataset, without considering the x values.
             <br /><br />
-            {@html katexify(
-              `\\text{y type} = \\hat{\\beta_1} * x unit + \\hat{\\beta_0}`,
-              false
-            )}
+            y = β1*x + β0
             <br /><br />
-            We'll start with a  simple model, predicting the y
-            to be just the average y in our dataset, ~5, ignoring
-            the different x's of each data point:
+            y = 0*x + 5      
             <br /><br />
-            {@html katexify(`\\text{y type} = 0.778 * x unit + 5`, false)}
+            y =  5      
           </p>
           </div>
         </div>
 
         <div class="step" class:active={value === 1}>
           <div class="step-content">
-            <p>
-            We know this model is bad because the model doesn't fit the data
-            well at all. But how can do quantify exactly <i>how</i> bad?
+            <p class = 'lol'>
+              This model sucks at matching our data closely. 
+              <br>
+              <br>
+              But..
+              <br>
+               How can we measure <i>how</i> much it sucks?
             <br /><br />
-            To evaluate the model's performance numerically, we plot the error
-            of each observation directly. These errors, or
-            <span class="bold">residuals</span>, measure the distance between
-            each observation and the predicted value for that observation. We can 
-            clearly see that our model has a lot of error.
+            <strong>Residuals!</strong>
+            <br>
+            Plotted are the difference between each actual observation and its predicted value.
+            <br>
+            These differences, or
+            <span class="bold"><i>residuals</i></span>,  show how far off our predictions are from the actual data points. 
+            <br>
+            <br>
+            This simple model has a lot of residuals, which is bad. Very, very bad!!
+            <br>
           </p>
           </div>
         </div>
 
         <div class="step" class:active={value === 2}>
           <div class="step-content">
-            <p>
-            The goal of linear regression is reducing this error such that we
-            find a line that 'best' fits our data. For our simple
-            regression problem, that involves estimating the y-intercept and slope
-            of our model, {@html katexify(`\\hat{\\beta_0}`, false)} and {@html katexify(
+            <p class = 'lol'>
+            <strong>Line of Best Fit & Residuals</strong>
+            <br>
+            <br>
+            Remember: the goal of linear regression is finding the line of best fit, which is the line that 
+            minimizes the residuals. 
+            <br>
+            <br>
+            The line that best fits our data is plotted. There is still error, but it is minimized and the general 
+            pattern is captured. 
+             {@html katexify(`\\hat{\\beta_0}`, false)} and {@html katexify(
               `\\hat{\\beta_1}`,
               false
             )}.
-            <br /><br />
-            For our specific problem, the best fit line is shown. There's still error,
-            but, the general pattern is captured well. As a result, we can be
-            reasonably confident that if we plug in new values of x unit,
-            our predicted values of y unit would be reasonably accurate.
-          </p>
+            </p>
           </div>
         </div>
 
         <div class="step" class:active={value === 3}>
           <div class="step-content">
-            <p>
-            Once we've fit our model, predicting future y values is super easy! We
-            just plug in any {@html katexify(`x_i`, false)} values into our equation!
-            <br /><br />For our simple model, that means plugging in a value for
-            {@html katexify(`x unit`, false)} into our model:
-          </p>
-          <br />
+            <p class = 'lol'>
+              <strong>Making Predictions</strong>
+              <br>
+              <br>
+              Once we've fit our model, predicting future y values is super easy! We
+              just plug in any {@html katexify(`x_i`, false)} values into our equation!
+              <br /><br />For our linear regression model model, that means plugging in a value for
+              {@html katexify(`x unit`, false)} into our model:
+            </p>
           <div id="input-container">
-            <p>{@html katexify(`x unit`, false)} Value: {$sliding}</p>
+            <p class = 'lol'>
+            {@html katexify(`x unit`, false)} Value: {$sliding}</p>
             <input
               type="range"
               min="1"
@@ -125,12 +198,13 @@
               id="myRange"
             />
           </div>
-          <p>
+          <p class = 'lol'>
             <br />
             {@html katexify(
               `\\hat{y} = ${$coeff} * ${$sliding} ${$intercept}`,
               false
             )}
+            <br />
             <br />
             {@html katexify(
               `\\hat{y} =  ${Math.round($sliding * $coeff + $intercept, 3)}`,
@@ -150,22 +224,52 @@
       <Scatterplot step={value}/>
     </div>
   </div>
-
-  <p class="body-text">
-    Now that we have a high-level idea of how linear regression works, let's
-    dive a bit deeper. The remainder of this article will cover how to evaluate
-    regression models.
-    <br /><br /> Let's dive in!
-  </p>
 </section>
+{/if}
 
-<MeanSquaredError />
+
+{#if scrollY > 2500}
+  <MeanSquaredError />
+{/if}
 <WriteUp />
+
 
 <style>
 	:global(body) {
 		overflow-x: hidden;
 	}
+
+  p {
+    opacity: 0;
+    transition: opacity 1s;
+    font-family: Arial, sans-serif; /* Replace with your desired font */
+    text-align: center;
+    
+  }
+
+  p.fade-in {
+    opacity: 1;
+  }
+
+  h3 {
+    opacity: 0;
+    transition: opacity 1s;
+    font-family: Arial, sans-serif; /* Replace with your desired font */
+    text-align: center;
+    padding-left: 40px; /* Add this line */
+    padding-right: 40px; /* Add this line */
+  }
+  h3.fade-in {
+    opacity: 1;
+  }
+
+
+  p.lol {
+    opacity: 1;
+    transition: opacity 1s;
+    font-family: Arial, sans-serif; /* Replace with your desired font */
+  }
+
   
 	.hero {
 		height: 60vh;
@@ -175,8 +279,8 @@
 		justify-content: center;
 		text-align: center;
 	}
-	
-	.hero h2 {
+
+  .hero h2 {
 		margin-top: 0;
 		font-weight: 200;
 	}
@@ -223,7 +327,7 @@
 		max-width: 500px;
   }
 
-	.step.active .step-content {
+  .step.active .step-content {
 		background: white;
 		color: black;
 	}
@@ -238,6 +342,7 @@
     z-index: 10;
   }
 	
+  
 /* Comment out the following line to always make it 'text-on-top' */
   @media screen and (max-width: 768px) {
     .section-container {
@@ -249,3 +354,5 @@
     }
   }
 </style>
+
+

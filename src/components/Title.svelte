@@ -1,14 +1,16 @@
 <section id="intro">
   <h1 id="intro-hed">Regression Analysis</h1>
   <h1 id="intro-sub">
-    Linear Regression:<br>What? Why? How?
+  
+    The WHAT? The WHY? & The HOW?
   </h1>
-  <p>
-  Keep Scrolling to Find Out!
-  </p>
+  
   <h3 id="intro__date">
-    Nessa Pantfoerder & Alaa Fadhl-allah
+    By Nessa Pantfoerder & Alaa Fadhl-Allah
   </h3>
+  <p>
+  Scroll to Find Out!
+  </p>
 </section>
 
 <style>
@@ -17,10 +19,11 @@
     margin: 1rem auto;
     text-align: center;
     padding-top: 1rem;
+    font-family: Arial, Helvetica, sans-serif, sans-serif; /* Add this line */
   }
 
   #intro-hed {
-    font-size: 6rem;
+    font-size: 2rem;
     margin-top: 5px;
     margin-bottom: 0;
     letter-spacing: 1.5px;
@@ -28,27 +31,31 @@
     max-width: 100%;
     margin: auto;
     color: var(--squidink);
+    font-family: Arial, Helvetica, sans-serif, sans-serif; /* Add this line */
   }
 
   #intro-sub {
-    font-size: 1.4rem;
+    font-size: 7rem;
     color: var(--squid-nk);
     text-align: center;
-    margin: 1rem;
-    opacity: 0.75;
-    padding: 2rem;
-    font-family: var(--font-main);
+    margin: 0;
+    opacity: 0.90;
+    padding: 0.5rem;
+    font-family: Arial, Helvetica, sans-serif, sans-serif; /* Add this line */
+    font-weight: bold !important; /* Add this line */
+
   }
 
   #intro__date {
-    font-size: 1.1rem;
+    font-size: 0.8rem;
     color: var(--squidink);
     margin: 0px;
-    margin-top: 15px;
+    margin-top: 0px;
     padding-bottom: 0px;
     margin-bottom: 0px;
     padding-bottom: 1rem;
-    font-family: var(--font-main);
+    font-family: Arial, Helvetica, sans-serif, sans-serif; 
+    font-weight: normal;/* Add this line */
   }
 
   /* mobile */

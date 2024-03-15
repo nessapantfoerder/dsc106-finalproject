@@ -57,7 +57,6 @@
 
 <Logo />
 <Title />
-<Intro />
 
 
 <section>

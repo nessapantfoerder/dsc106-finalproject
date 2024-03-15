@@ -61,9 +61,10 @@
 
 
 <section>
-  <h3 class:fade-in={scrollY > 100}>
+  <h2 class:fade-in={scrollY > 100}>
+    <br>
     What is Linear Regression?
-  </h3>
+  </h2>
   <p class:fade-in={scrollY > 150}>
     <strong>Linear Regression</strong>  is a basic statistical model used to understand how changes in one variable relates to changes in another variable.
     It does this by fitting a straight line to the data points and using that line to predict future values.
@@ -79,12 +80,12 @@
     <br>
     
     </p>
-    <p class:fade-in={scrollY > 500}>
+    <p class:fade-in={scrollY > 300}>
       <strong>Line of Best Fit Equation:</strong>
       <br>
       
     </p>
-    <p class:fade-in={scrollY > 500}>
+    <p class:fade-in={scrollY > 350}>
       {@html katexify(`Y = A + B * X`, false)}
       <br>
       where B is the slope of the line and A is the y-intercept.
@@ -93,22 +94,26 @@
       <br>
       <br>    
     </p>
-    <p class:fade-in={scrollY > 600}>
+    <p class:fade-in={scrollY > 400}>
       A simple example:
   <br>
   Let's say we are predicting the price of the house using the number of rooms in the house.
   The number of rooms in the house is the independent variable X
   and the price of the house is the dependent variable Y.
+  <br>
+  <br>    
+  <br>
+
 </p>
 </section>
 
 <section>
-  <h3 class:fade-in={scrollY > 700}>
+  <h2 class:fade-in={scrollY > 550}>
     How is a Linear Regression Model built?
-  </h3>
+  </h2>
 </section>
 
-{#if scrollY > 720}
+{#if scrollY > 570}
 <section>
   <div class="section-container">
     <div class="steps-container">
@@ -116,10 +121,10 @@
         <div class="step" class:active={value === 0}>
           <div class="step-content">
             <p class = 'lol'>
-              <strong>A Super Duper Simple Linear Model</strong>
+              <strong>A Super Simple Linear Model</strong>
               <br />
             <br />
-            First, we will start with a very simple model that predicts the y to be the average of y values in our dataset, without considering the x values.
+            First, we will start with a very simple model that predicts  the average of y values in our dataset, without considering the x values.
             <br /><br />
             y = β1*x + β0
             <br /><br />
@@ -133,7 +138,7 @@
         <div class="step" class:active={value === 1}>
           <div class="step-content">
             <p class = 'lol'>
-              This model is super simple, but sadly, a little stupid. 
+              This model is super simple, but also stupid. 
               It sucks at capturing the pattern in our data. 
               <br>
               <br>
@@ -215,8 +220,58 @@
 </section>
 {/if}
 
+{#if scrollY > 2400}
+  <section>
+  <br><br><br>
+  <h2 class="fade-in">More ways to Evaluate Linear Regression Models!</h2>
+  </section>
+{/if}
 
 {#if scrollY > 2500}
+<p class="fade-in">
+  <br />
+  There are many ways to evaluate the performance of a regression model, but the two most common are Mean Squared Error (MSE) and R-squared. 
+  They both use residuals, but in different ways.
+  <br /><br />
+</p>
+  {/if}
+{#if scrollY > 2600}
+  <p class="fade-in">
+  <strong>1. Mean-Squared Error (MSE)</strong>
+  <br />
+  <br>
+  MSE quantifies how close a predicted value is to the true value, so we'll use
+  it to quantify how close a regression line is to a set of points. MSE works by
+  squaring the distance between each data point and the regression line (the red
+  residuals in the graphs above), summing the squared values, and then dividing
+  by the number of data points: {@html katexify(
+    `\\begin{aligned} MSE = \\frac{1}{n} \\Sigma^{n}_{i=1}(y_i - \\hat{y_i})^2 \\end{aligned}`,
+    true
+  )}
+  </p>
+{/if}
+{#if scrollY > 2700}
+  <p class="fade-in">
+  <br /><br />
+  <strong>2. R-Squared</strong>
+  <br />
+  <br>
+  R-squared is a metric that represents
+  the percentage of the variance in {@html katexify(`y`, false)} explained by our
+  features {@html katexify(`x`, false)}.
+  More specifically, r-squared measures the percentage of variance explained normalized
+  against the baseline variance of our model (which is just the variance of the
+  mean):
+  {@html katexify(
+    `\\begin{aligned} R^2 = 1 - \\frac{\\Sigma^{n}_{i=1}(y_i - \\hat{y_i})^2 }{\\Sigma^{n}_{i=1}(y_i - \\bar{y})^2 }  \\end{aligned}`,
+    true
+  )}
+  <br>
+  R-squared must lie within [-1, 1]. A negative r-squared is doing worse than a flat line through the mean of our data, like our super duper simple (but stupid) model.
+  <br /><br /><br>
+  {/if}
+
+{#if scrollY > 2750}
   <MeanSquaredError />
 {/if}
 <WriteUp />
@@ -239,7 +294,7 @@
     opacity: 1;
   }
 
-  h3 {
+  h2 {
     opacity: 0;
     transition: opacity 1s;
     font-family: Arial, sans-serif; /* Replace with your desired font */
@@ -247,7 +302,7 @@
     padding-left: 40px; /* Add this line */
     padding-right: 40px; /* Add this line */
   }
-  h3.fade-in {
+  h2.fade-in {
     opacity: 1;
   }
 

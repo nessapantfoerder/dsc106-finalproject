@@ -1,9 +1,7 @@
 <section id="intro">
   <h1 id="intro-hed">Regression Analysis</h1>
-  <h1 id="intro-sub">
+  <h1 id="intro-sub"></h1>
   
-    The WHAT? The WHY? & The HOW?
-  </h1>
   
   <h3 id="intro__date">
     By Nessa Pantfoerder & Alaa Fadhl-Allah

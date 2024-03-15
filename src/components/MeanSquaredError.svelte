@@ -3,6 +3,7 @@
   import { format } from "d3-format";
   import katexify from "../katexify";
   import MSEScatterplot from "./MSEScatterplot.svelte";
+  
   let mseScatterClass;
 
   // label formatter
@@ -10,44 +11,7 @@
 </script>
 
 <section>
-  <h1 class="body-header">Model Evaluation</h1>
-  <p class="body-text">
-    <br />
-    There are many ways to evaluate the performance of a regression model, but the two most common are Mean Squared Error (MSE) and R-squared. 
-    They both use residuals, but in different ways.
-    <br /><br />
-    <strong>1. Mean-Squared Error (MSE)</strong>
-    <br />
-    <br>
-    MSE quantifies how close a predicted value is to the true value, so we'll use
-    it to quantify how close a regression line is to a set of points. MSE works by
-    squaring the distance between each data point and the regression line (the red
-    residuals in the graphs above), summing the squared values, and then dividing
-    by the number of data points: {@html katexify(
-      `\\begin{aligned} MSE = \\frac{1}{n} \\Sigma^{n}_{i=1}(y_i - \\hat{y_i})^2 \\end{aligned}`,
-      true
-    )}
-    
-    <br /><br />
-    <strong>2. R-Squared</strong>
-    <br />
-    <br>
-    R-squared is a metric that represents
-    the percentage of the variance in {@html katexify(`y`, false)} explained by our
-    features {@html katexify(`x`, false)}.
-    More specifically, r-squared measures the percentage of variance explained normalized
-    against the baseline variance of our model (which is just the variance of the
-    mean):
-    {@html katexify(
-      `\\begin{aligned} R^2 = 1 - \\frac{\\Sigma^{n}_{i=1}(y_i - \\hat{y_i})^2 }{\\Sigma^{n}_{i=1}(y_i - \\bar{y})^2 }  \\end{aligned}`,
-      true
-    )}
-    <br>
-    R-squared must lie within [-1, 1]. A negative r-squared is doing worse than a flat line through the mean of our data, like our super duper simple (but stupid) model.
-    
-    <br /><br />
-    <br>
-  </p>
+  
     <h3>Try for yourself!</h3>
     <p>
     To build intuition for yourself, change the weight and
@@ -145,10 +109,15 @@
     font-family: Arial, sans-serif; /* Replace with your desired font */
     
   }
-  h1 {
+  h2 {
+    transition: opacity 1s;
     font-family: Arial, sans-serif; /* Replace with your desired font */
     text-align: center;
-    
+    padding-left: 40px; /* Add this line */
+    padding-right: 40px; /* Add this line */
+  }
+  h2.fade-in {
+    opacity: 1;
   }
   h3 {
     font-family: Arial, sans-serif; /* Replace with your desired font */

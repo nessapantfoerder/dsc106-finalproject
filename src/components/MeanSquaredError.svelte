@@ -132,12 +132,6 @@
     </div>
   </div>
   <br /><br />
-
-  <br /><br />
-  <h3>Conclusion</h3>
-  <p class="body-text">
-    WE NEED TO INCLUDE A CONCLUSION AND TAKEAWAY HERE BECAUSE IT IS A FEEDBACK I GOT DURING CLASS
-  </p>
 </section>
 
 <style>

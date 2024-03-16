@@ -112,7 +112,51 @@
   bind:offsetWidth={width}
   bind:offsetHeight={height}
 >
+<!-- width={$mseWidth} height={$mseHeight + margin.top + margin.bottom} -->
   <svg width={width + margin.right + margin.left} {height}>
+    <!-- x-ticks -->
+    {#each xScale.ticks() as tick}
+      <g
+        transform={`translate(${xScale(tick) + 0} ${
+          height - margin.bottom
+        })`}
+      >
+        <!-- svelte-ignore component-name-lowercase -->
+        <line
+          class="grid-line"
+          x1="0"
+          x2="0"
+          y1="0"
+          y2={-height + margin.bottom + margin.top}
+          stroke="black"
+          stroke-dasharray="4"
+        />
+        <text class="axis-text" y="15" text-anchor="middle"
+          >{tick}</text
+        >
+      </g>
+    {/each}
+    <!-- y-ticks -->
+    {#each yScale.ticks() as tick}
+      <g transform={`translate(${margin.left - 5} ${yScale(tick) + 0})`}>
+        <!-- svelte-ignore component-name-lowercase -->
+        <line
+          class="grid-line"
+          x1={5}
+          x2={width - margin.right}
+          y1="0"
+          y2="0"
+          stroke="black"
+          stroke-dasharray="4"
+        />
+        <text
+          class="axis-text"
+          y="0"
+          text-anchor="end"
+          dominant-baseline="middle">{tick}</text
+        >
+      </g>
+    {/each}
     <!-- x axis line -->
     <line
       class="axis-line"
@@ -196,7 +240,7 @@
   }
 
   .axis-text {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 
   .grid-line {

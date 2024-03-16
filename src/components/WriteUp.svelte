@@ -1,35 +1,79 @@
 <script></script>
 
-<h1 class="body-header">Write up</h1>
-<p class="body-text">
-  The web page writeup contains at least 4 sentences for each of the following questions:
-</p>
 <hr />
-<p class="body-text">
-  What have you done so far?
-  <br /><br />
-  So far, we have set up the blueprint of the webpage. We created 3 slides; one for 
-  linear regression, one for logistic regression, and one for the conclusion. We used 
-  the linearregression from simple-statistics to fit a linear regression model to the
-  simulated data. In addition, we are working on using logistic-regression from the same 
-  package to fit a logistic regression model to the simulated data. Then, we added a 
-  button to add an outlier, as well as a buttion to remove outliers, so that we can 
-  show how outliers affect linear regression and logistic regression. The prototype has 
-  3 visualizations and 2 interative buttons.
+<h1>Conclusion</h1>
+
+<h2>What?</h2>
+<p>
+  Linear regression addresses the question of what relationship exists between 
+  one or more independent variables (predictors) and a dependent variable (outcome). 
+  It quantifies this relationship by fitting a linear equation to the observed data 
+  points.
 </p>
-<hr />
-<p class="body-text">
-  What will be the most challenging of your project to design and why?
-  <br /><br />
-  The most challenging part of our project to design will be the logistic regression model. 
-  This is because logistic regression is a more complex model than linear regression. It 
-  is also more difficult to interpret the results of logistic regression than linear 
-  regression. Regarding the linear regression model, there is the challenge of updating 
-  the linear regression model with the addition/removal of points simultaneously. We may 
-  add a button to fit the new data to oveercome that difficulty.
+
+<h2>Why?</h2>
+<p>
+  Linear regression helps to uncover patterns and associations within data, providing 
+  insights into how changes in one variable correspond to changes in another. Understanding 
+  these relationships can lead to valuable insights for decision-making, hypothesis testing, 
+  and forecasting.
+</p>
+
+<h2>How?</h2>
+<p>Linear regression accomplishes its goal through a systematic process:</p>
+<ul>
+    <li>
+      <strong>Model Construction:</strong>
+      It starts by selecting an appropriate model that describes the relationship 
+      between the variables. In the case of simple linear regression, this involves 
+      fitting a straight line to the data; in multiple linear regression, it's a 
+      plane or hyperplane in higher dimensions.
+    </li>
+    <li>
+      <strong>Model Evaluation:</strong> 
+      Once the model is fitted, its performance is evaluated using metrics like 
+      Mean Squared Error (MSE) or R-squared, which quantify how well the model 
+      explains the variability in the data.
+    </li>
+    <li>
+      <strong>Interpretation:</strong> 
+      The coefficients of the linear equation provide insights into the strength 
+      and direction of the relationship between variables. These interpretations 
+      help answer questions about the magnitude of effects and the significance 
+      of predictors.
+    </li>
+</ul>
+
+<p>
+  Linear regression is a versatile tool that addresses fundamental questions about 
+  relationships in data by providing a quantitative framework for analysis and prediction. 
+  It serves to uncover the what, why, and how behind these relationships, making it a 
+  cornerstone in statistical modeling and data analysis.
 </p>
 
 <style>
+  p {
+      font-family: Arial, sans-serif; /* Replace with your desired font */
+  }
+
+  li {
+      font-family: Arial, sans-serif; /* Replace with your desired font */
+  }
+
+  h1 {
+    font-family: Arial, sans-serif; /* Replace with your desired font */
+    text-align: center;
+  }
+
+  h2 {
+    font-family: Arial, sans-serif; /* Replace with your desired font */    
+  }
+
+  h3 {
+    font-family: Arial, sans-serif; /* Replace with your desired font */
+    text-align: center;
+  }
+
   .body-header {
     font-size: 1.5em;
     font-weight: bold;
@@ -38,6 +82,6 @@
 
   .body-text {
     font-size: 1.2em;
-    opacity: 0;
+    opacity: 1;
   }
 </style>

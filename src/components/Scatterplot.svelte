@@ -12,7 +12,6 @@
   const formatter = format("$,");
 
   export let step;
-  export let pricesData;
 
   let data = [
     { foo: 2, bar: 3, swag: 3 },
@@ -235,10 +234,6 @@
 		box-shadow: 1px 1px 6px #cecece;
   }
 
-  .axis-label {
-    font-weight: bold;
-  }
-
   .axis-text {
     font-size: 0.7rem;
   }
@@ -247,22 +242,5 @@
     opacity: 0.075;
   }
 
-  .axis-label {
-    text-transform: uppercase;
-    font-size: 0.9rem;
-  }
-
-  /* ipad */
-  @media screen and (max-width: 950px) {
-    .axis-label {
-      font-size: 0.8rem;
-    }
-  }
-  /* mobile */
-  @media screen and (max-width: 750px) {
-    .axis-label {
-      font-size: 0.75rem;
-    }
-  }
 </style>
 

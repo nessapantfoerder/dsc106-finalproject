@@ -268,21 +268,6 @@
     font-family: Arial, sans-serif; /* Replace with your desired font */
   }
 
-  
-	.hero {
-		height: 60vh;
-		display: flex;
-		place-items: center;
-		flex-direction: column;
-		justify-content: center;
-		text-align: center;
-	}
-
-  .hero h2 {
-		margin-top: 0;
-		font-weight: 200;
-	}
-	
   .spacer {
     height: 40vh;
   }

@@ -69,19 +69,4 @@
     font-family: Arial, sans-serif; /* Replace with your desired font */    
   }
 
-  h3 {
-    font-family: Arial, sans-serif; /* Replace with your desired font */
-    text-align: center;
-  }
-
-  .body-header {
-    font-size: 1.5em;
-    font-weight: bold;
-    opacity: 0;
-  }
-
-  .body-text {
-    font-size: 1.2em;
-    opacity: 1;
-  }
 </style>

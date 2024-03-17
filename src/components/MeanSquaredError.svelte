@@ -104,16 +104,7 @@
     padding-left: 40px; /* Add this line */
     padding-right: 40px; /* Add this line */
   }
-  h2 {
-    transition: opacity 1s;
-    font-family: Arial, sans-serif; /* Replace with your desired font */
-    text-align: center;
-    padding-left: 40px; /* Add this line */
-    padding-right: 40px; /* Add this line */
-  }
-  h2.fade-in {
-    opacity: 1;
-  }
+  
   h3 {
     font-family: Arial, sans-serif; /* Replace with your desired font */
     text-align: center;

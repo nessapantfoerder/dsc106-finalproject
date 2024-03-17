@@ -1,7 +1,5 @@
 <section id="intro">
   <h1 id="intro-hed">Regression Analysis</h1>
-  <h1 id="intro-sub"></h1>
-  
   
   <h3 id="intro__date">
     By Nessa Pantfoerder & Alaa Fadhl-Allah
@@ -12,6 +10,7 @@
 </section>
 
 <style>
+
   #intro {
     max-width: 600px;
     margin: 1rem auto;
@@ -32,18 +31,6 @@
     font-family: Arial, Helvetica, sans-serif, sans-serif; /* Add this line */
   }
 
-  #intro-sub {
-    font-size: 7rem;
-    color: var(--squid-nk);
-    text-align: center;
-    margin: 0;
-    opacity: 0.90;
-    padding: 0.5rem;
-    font-family: Arial, Helvetica, sans-serif, sans-serif; /* Add this line */
-    font-weight: bold !important; /* Add this line */
-
-  }
-
   #intro__date {
     font-size: 0.8rem;
     color: var(--squidink);
@@ -60,11 +47,6 @@
   @media screen and (max-width: 950px) {
     #intro-hed {
       font-size: 3.1rem;
-    }
-
-    #intro-sub {
-      font-size: 1.2rem;
-      padding: 2rem 0;
     }
   }
 </style>

@@ -1,6 +1,16 @@
 <script></script>
 
 <hr />
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <h1>Conclusion</h1>
 
 <h2>What?</h2>
@@ -54,18 +64,26 @@
 <style>
   p {
       font-family: Arial, sans-serif; /* Replace with your desired font */
+      padding-right: 40px;
+      padding-left: 40px; /* Add this line */
   }
 
   li {
+    padding-right: 40px;
+    padding-left: 40px; /* Add this line */
       font-family: Arial, sans-serif; /* Replace with your desired font */
   }
 
   h1 {
+    padding-right: 40px;
+    padding-left: 40px; /* Add this line */
     font-family: Arial, sans-serif; /* Replace with your desired font */
     text-align: center;
   }
 
   h2 {
+    padding-right: 40px;
+    padding-left: 40px; /* Add this line */
     font-family: Arial, sans-serif; /* Replace with your desired font */    
   }
 

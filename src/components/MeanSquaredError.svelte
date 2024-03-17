@@ -101,7 +101,8 @@
 <style>
   p {
     font-family: Arial, sans-serif; /* Replace with your desired font */
-    
+    padding-left: 40px; /* Add this line */
+    padding-right: 40px; /* Add this line */
   }
   h2 {
     transition: opacity 1s;

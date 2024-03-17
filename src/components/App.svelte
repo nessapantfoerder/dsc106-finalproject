@@ -95,7 +95,7 @@
       <br>    
     </p>
     <p class:fade-in={scrollY > 400}>
-      A simple example:
+      <strong>An Example:</strong> 
   <br>
   Let's say we are predicting the price of the house using the number of rooms in the house.
   The number of rooms in the house is the independent variable X
@@ -228,26 +228,27 @@
 </section>
 {/if}
 
-{#if scrollY > 2400}
+
   <section>
   <br><br><br>
-  <h2 class="fade-in">More ways to Evaluate Linear Regression Models!</h2>
+  <h2 class:fade-in={scrollY > 2400}>More ways to Evaluate Linear Regression Models!</h2>
   </section>
-{/if}
 
-{#if scrollY > 2500}
-<p class="fade-in">
+
+<p class:fade-in={scrollY > 2500}>
   <br />
   There are many ways to evaluate the performance of a regression model, but the two most common are Mean Squared Error (MSE) and R-squared. 
   They both use residuals, but in different ways.
   <br /><br />
 </p>
-  {/if}
-{#if scrollY > 2600}
-  <p class="fade-in">
+
+<p class:fade-in={scrollY > 2600}>
   <strong>1. Mean-Squared Error (MSE)</strong>
   <br />
   <br>
+</p>
+
+<p class:fade-in={scrollY > 2650}>
   MSE quantifies how close a predicted value is to the true value, so we'll use
   it to quantify how close a regression line is to a set of points. MSE works by
   squaring the distance between each data point and the regression line (the red
@@ -257,13 +258,14 @@
     true
   )}
   </p>
-{/if}
-{#if scrollY > 2700}
-  <p class="fade-in">
-  <br /><br />
+
+  <p class:fade-in={scrollY > 2750}>
+    <br /><br />
   <strong>2. R-Squared</strong>
   <br />
   <br>
+  </p>
+  <p class:fade-in={scrollY > 2800}>
   R-squared is a metric that represents
   the percentage of the variance in {@html katexify(`y`, false)} explained by our
   features {@html katexify(`x`, false)}.
@@ -275,11 +277,10 @@
     true
   )}
   <br>
-  R-squared must lie within [-1, 1]. A negative r-squared is doing worse than a flat line through the mean of our data, like our super duper simple (but stupid) model.
+  R-squared must lie within [-1, 1]. A negative r-squared is doing worse than a flat line through the mean of our data; even worse than our super duper simple (but stupid) model.
   <br /><br /><br>
-  {/if}
-
-{#if scrollY > 2750}
+</p>
+{#if scrollY > 2900}
   <MeanSquaredError />
 {/if}
 
@@ -296,11 +297,15 @@
     transition: opacity 1s;
     font-family: Arial, sans-serif; /* Replace with your desired font */
     text-align: center;
-    
+    padding-right: 60px;
+    padding-left: 60px; 
   }
 
   p.fade-in {
     opacity: 1;
+    padding-right: 60px;
+    padding-left: 60px; /* Add this line */
+
   }
 
   h2 {
@@ -320,6 +325,8 @@
     opacity: 1;
     transition: opacity 1s;
     font-family: Arial, sans-serif; /* Replace with your desired font */
+    padding-right: 20px;
+    padding-left: 20px; 
   }
 
   .spacer {

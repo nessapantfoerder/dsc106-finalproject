@@ -14,7 +14,8 @@
   import {
     coeff,
     intercept,
-    sliding
+    sliding,
+    computedValue
   } from "../store.js";
   import { format } from "d3-format";
   import { fade } from 'svelte/transition';
@@ -125,11 +126,11 @@
             <br />
             First, we will start with a very simple model that predicts  the average of y values in our dataset, without considering the x values.
             <br /><br />
-            y = β1*x + β0
+            {@html katexify(`y = \\beta_{1}*x + \\beta_{0}`, false)}
             <br /><br />
-            y = 0*x + 5      
+            {@html katexify(`y = 0*x + 5.5`, false)}
             <br /><br />
-            y =  5      
+            {@html katexify(`y = 5.5`, false)}    
           </p>
           </div>
         </div>
@@ -201,11 +202,19 @@
           </div>
           <p class = 'lol'>
             <br />
-            y = {$coeff} * {$sliding} + {$intercept}
+            {@html katexify(
+              `\\hat{y} = ${$coeff} * ${$sliding} + ${$intercept}`,
+              false
+            )}
+            <br />
+            {@html katexify(
+              `\\hat{y} =  ${$sliding * $coeff + $intercept}`,
+              false
+            )}
             <br />
             <br />
             Our model predicts that an x-value of {$sliding} will have a y-value of
-            {(Math.round($sliding * $coeff + $intercept, 3))}.
+            {$sliding * $coeff + $intercept}.
           </p>
           </div>
         </div>
@@ -273,6 +282,7 @@
 {#if scrollY > 2750}
   <MeanSquaredError />
 {/if}
+
 <WriteUp />
 
 
@@ -312,21 +322,6 @@
     font-family: Arial, sans-serif; /* Replace with your desired font */
   }
 
-  
-	.hero {
-		height: 60vh;
-		display: flex;
-		place-items: center;
-		flex-direction: column;
-		justify-content: center;
-		text-align: center;
-	}
-
-  .hero h2 {
-		margin-top: 0;
-		font-weight: 200;
-	}
-	
   .spacer {
     height: 40vh;
   }
@@ -343,6 +338,10 @@
     text-align: center;
     transition: background 100ms;
     display: flex;
+  }
+
+  #input-container {
+    text-align: center; /* Center-align the content */
   }
 
   .step {

@@ -26,10 +26,6 @@
     justify-content: center;
     align-items: center;
   }
-  .logo {
-    letter-spacing: 2px;
-    width: 12rem;
-  }
 
   #intro-icon a:hover {
     background-color: none;
@@ -39,8 +35,4 @@
     padding-bottom: 0;
   }
 
-  #intro-icon h2 {
-    margin-bottom: 0;
-    padding-bottom: 0;
-  }
 </style>
